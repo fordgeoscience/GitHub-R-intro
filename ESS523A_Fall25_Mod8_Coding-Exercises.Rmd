@@ -1,0 +1,55 @@
+---
+title: "Coding_Exercises_Mod8"
+author: "Ashley Ford"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Run setup script.
+
+```{r}
+source("setup.R")
+```
+
+# Coding Exercise - Module 8
+
+## 1. Create a new column in the bison dataset that calculates the individual’s age at the time of observation.
+
+
+```{r}
+kzn_bison_w_age <- knz_bison %>%
+  mutate(age_yr = rec_year-animal_yob)
+kzn_bison_w_age
+```
+
+
+## 2. Write a function that will first filter the bison dataset based on any user-specified weight threshold (returning the filtered dataset).
+
+```{r}
+weight_filtered_data <- kzn_bison_w_age %>%
+  filter(animal_weight >= 900)
+weight_filtered_data
+```
+
+## 3. Create a boxplot showing weight distribution between male and female bison, and then conduct a t-test to see if weight is significantly difference between males and females.
+
+```{r}
+ggplot(data=weight_filtered_data) +
+geom_boxplot(aes(x=animal_sex, y=animal_weight))
+
+### Test assumptions. Is the variance of both groups equal? Reminder: p-values less than 0.05 are significant.In a Levene test, we focus on the p-value. If above 0.05, the variance are considered homogeneous (equal), meaning the assumption is met. If the p-value is less than the significance level, the variances are heterogeneous (unequal) and the assumption of equality is violated.
+
+weight_filtered_data %>%
+  levene_test(animal_weight ~ animal_sex)
+
+### Now that we know the variance is not equal in both groups, we can (a) transform our weight variable, or (b) use the non-parametric Welch t-test which does not assume equal variances.
+
+weight_filtered_data %>%
+  t_test(animal_weight ~ animal_sex, var.equal = FALSE, detailed=TRUE)
+
+### Weight is significantly different between males and females. Males tend to weigh about 300 pounds more than females. 
+```
+```
+
+
+
