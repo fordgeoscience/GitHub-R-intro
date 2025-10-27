@@ -47,7 +47,7 @@ weight_filtered_data %>%
 weight_filtered_data %>%
   t_test(animal_weight ~ animal_sex, var.equal = FALSE, detailed=TRUE)
 
-### Weight is significantly different between males and females. Males tend to weigh about 300 pounds more than females. 
+### Weight is significantly different between males and females. Males tend to weigh about 300 pounds more than females.. 
 ```
 ```
 

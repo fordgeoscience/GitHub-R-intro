@@ -13,7 +13,7 @@ packageLoad <-
 
 # Use function to set up environment
 # Create a concatenated (c) list of packages. Then run the list through the packageLoad function.
-# Add package names to 'packages' throughout the semester as we use them.
+# Add package names to 'packages' throughout the semester as we use them..
 
 packages <- c("tidyverse", 
               "palmerpenguins", 
